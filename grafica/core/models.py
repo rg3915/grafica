@@ -2,6 +2,22 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class TimeStampedModel(models.Model):
+    criado_em = models.DateTimeField(
+        'criado em',
+        auto_now_add=True,
+        auto_now=False
+    )
+    modificado_em = models.DateTimeField(
+        'modificado em',
+        auto_now_add=False,
+        auto_now=True
+    )
+
+    class Meta:
+        abstract = True
+
+
 class SaidaBase(models.Model):
     titulo = models.CharField(max_length=100)
     altura = models.PositiveIntegerField(null=True, blank=True)
@@ -24,7 +40,14 @@ class SaidaBase(models.Model):
         return self.titulo
 
 
-class Fotolito(SaidaBase):
+class Ativo(models.Model):
+    ativo = models.BooleanField(default=True)
+
+    class Meta:
+        abstract = True
+
+
+class Fotolito(SaidaBase, TimeStampedModel, Ativo):
     cores = models.CharField(
         'número de cores',
         max_length=10,
@@ -36,16 +59,6 @@ class Fotolito(SaidaBase):
         on_delete=models.CASCADE,
         null=True,
         blank=True
-    )
-    criado_em = models.DateTimeField(
-        'criado em',
-        auto_now_add=True,
-        auto_now=False
-    )
-    modificado_em = models.DateTimeField(
-        'modificado em',
-        auto_now_add=False,
-        auto_now=True
     )
 
     class Meta:
