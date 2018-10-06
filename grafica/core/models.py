@@ -38,6 +38,19 @@ class SaidaBase(models.Model):
         null=True,
         blank=True
     )
+    STATUS_CHOICES = (
+        ('abe', 'Aberto'),
+        ('rec', 'Recebido'),
+        ('pro', 'Produção'),
+        ('fin', 'Finalizado'),
+        ('sai', 'Saída'),
+        ('ent', 'Entregue'),
+    )
+    status = models.CharField(
+        max_length=3,
+        choices=STATUS_CHOICES,
+        default='abe'
+    )
 
     class Meta:
         ordering = ('titulo',)
@@ -116,13 +129,18 @@ class Ctp(SaidaBase, TimeStampedModel, Ativo):
         null=True,
         blank=True
     )
+    opcao = models.TextField('opção', null=True, blank=True)
     RETICULA_CHOICES = (
         ('con', 'convencional'),
         ('sub', 'sublimática'),
         ('est', 'estocástica'),
     )
-    opcao = models.TextField('opção', null=True, blank=True)
-    reticula = models.CharField('retícula', max_length=3, default='con')
+    reticula = models.CharField(
+        'retícula',
+        max_length=3,
+        choices=RETICULA_CHOICES,
+        default='con'
+    )
     chapa = models.BooleanField('chapas forneadas', default=False)
 
     class Meta:
