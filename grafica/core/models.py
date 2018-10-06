@@ -29,6 +29,13 @@ class SaidaBase(models.Model):
         null=True,
         blank=True
     )
+    papel = models.ForeignKey(
+        'Papel',
+        verbose_name='papéis',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
     recomendacao = models.TextField(null=True, blank=True)
     arquivo = models.FileField(null=True, blank=True)
     criado_por = models.ForeignKey(
@@ -60,6 +67,10 @@ class Lineatura(models.Model):
 
 class Formato(models.Model):
     formato = models.CharField(max_length=10)
+
+
+class Papel(models.Model):
+    papel = models.CharField(max_length=50)
 
 
 class Fotolito(SaidaBase, TimeStampedModel, Ativo):
@@ -100,3 +111,11 @@ class Ctp(SaidaBase, TimeStampedModel, Ativo):
     class Meta:
         verbose_name = 'CTP'
         verbose_name_plural = 'CTPs'
+
+
+class ProvaDeCor(SaidaBase, TimeStampedModel, Ativo):
+    pass
+
+    class Meta:
+        verbose_name = 'ProvaDeCor'
+        verbose_name_plural = 'ProvaDeCors'
