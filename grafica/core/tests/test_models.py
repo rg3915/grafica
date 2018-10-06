@@ -1,5 +1,5 @@
 from django.test import TestCase
-from grafica.core.models import Fotolito, Ctp, ProvaDeCor, FineArt
+from grafica.core.models import Fotolito, Ctp, ProvaDeCor, FineArt, UserProfile
 
 
 class FotolitoTestCase(TestCase):
@@ -95,3 +95,21 @@ class FineArtTestCase(TestCase):
         for field in fields:
             with self.subTest():
                 self.assertTrue(hasattr(FineArt, field))
+
+
+class UserProfileTestCase(TestCase):
+
+    def test_should_return_attributes(self):
+        fields = (
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'cpf',
+            'rg',
+            'ativo',
+        )
+
+        for field in fields:
+            with self.subTest():
+                self.assertTrue(hasattr(UserProfile, field))

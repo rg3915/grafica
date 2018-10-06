@@ -67,6 +67,30 @@ class Ativo(models.Model):
         abstract = True
 
 
+class UserProfile(User, Ativo):
+    cpf = models.CharField(
+        'CPF',
+        max_length=14,
+        unique=True,
+        null=True,
+        blank=True
+    )
+    rg = models.CharField(
+        'RG',
+        max_length=20,
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        ordering = ('first_name', 'last_name')
+        verbose_name = 'perfil'
+        verbose_name_plural = 'perfils'
+
+    def __str__(self):
+        return '{} {}'.format(self.first_name, self.last_name)
+
+
 class Lineatura(models.Model):
     titulo = models.CharField(max_length=5)
 

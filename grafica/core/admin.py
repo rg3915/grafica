@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Fotolito, Ctp, ProvaDeCor, Lineatura, Formato, Papel, FineArt
+from .models import UserProfile, Fotolito, Ctp, ProvaDeCor, Lineatura, Formato, Papel, FineArt
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('__str__',)
+    search_fields = ('first_name', 'last_name', 'email')
 
 
 @admin.register(Lineatura)
