@@ -29,13 +29,6 @@ class SaidaBase(models.Model):
         null=True,
         blank=True
     )
-    papel = models.ForeignKey(
-        'Papel',
-        verbose_name='papéis',
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True
-    )
     recomendacao = models.TextField(null=True, blank=True)
     arquivo = models.FileField(null=True, blank=True)
     criado_por = models.ForeignKey(
@@ -62,15 +55,39 @@ class Ativo(models.Model):
 
 
 class Lineatura(models.Model):
-    lineatura = models.CharField(max_length=5)
+    titulo = models.CharField(max_length=5)
+
+    class Meta:
+        ordering = ('titulo',)
+        verbose_name = 'lineatura'
+        verbose_name_plural = 'lineaturas'
+
+    def __str__(self):
+        return self.titulo
 
 
 class Formato(models.Model):
-    formato = models.CharField(max_length=10)
+    titulo = models.CharField(max_length=10)
+
+    class Meta:
+        ordering = ('titulo',)
+        verbose_name = 'formato'
+        verbose_name_plural = 'formatos'
+
+    def __str__(self):
+        return self.titulo
 
 
 class Papel(models.Model):
-    papel = models.CharField(max_length=50)
+    titulo = models.CharField(max_length=50)
+
+    class Meta:
+        ordering = ('titulo',)
+        verbose_name = 'papel'
+        verbose_name_plural = 'papéis'
+
+    def __str__(self):
+        return self.titulo
 
 
 class Fotolito(SaidaBase, TimeStampedModel, Ativo):
@@ -114,8 +131,28 @@ class Ctp(SaidaBase, TimeStampedModel, Ativo):
 
 
 class ProvaDeCor(SaidaBase, TimeStampedModel, Ativo):
-    pass
+    papel = models.ForeignKey(
+        'Papel',
+        verbose_name='papéis',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
 
     class Meta:
-        verbose_name = 'ProvaDeCor'
-        verbose_name_plural = 'ProvaDeCors'
+        verbose_name = 'Prova de Cor'
+        verbose_name_plural = 'Provas de Cor'
+
+
+class FineArt(SaidaBase, TimeStampedModel, Ativo):
+    papel = models.ForeignKey(
+        'Papel',
+        verbose_name='papéis',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = 'FineArt'
+        verbose_name_plural = 'FineArts'
