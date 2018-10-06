@@ -68,6 +68,13 @@ class Ativo(models.Model):
 
 
 class UserProfile(User, Ativo):
+    '''
+    Multi-table inheritance
+    Tabela de herança múltipla
+    Ele cria uma OneToOneField automaticamente a partir de User.
+    No caso, são duas tabelas.
+    https://docs.djangoproject.com/en/2.1/topics/db/models/#multi-table-inheritance
+    '''
     cpf = models.CharField(
         'CPF',
         max_length=14,
