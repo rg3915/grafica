@@ -22,6 +22,13 @@ class SaidaBase(models.Model):
     titulo = models.CharField(max_length=100)
     altura = models.PositiveIntegerField(null=True, blank=True)
     largura = models.PositiveIntegerField(null=True, blank=True)
+    quantidade = models.PositiveIntegerField(null=True, blank=True)
+    formato = models.ForeignKey(
+        'Formato',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
     recomendacao = models.TextField(null=True, blank=True)
     arquivo = models.FileField(null=True, blank=True)
     criado_por = models.ForeignKey(
@@ -47,6 +54,14 @@ class Ativo(models.Model):
         abstract = True
 
 
+class Lineatura(models.Model):
+    lineatura = models.CharField(max_length=5)
+
+
+class Formato(models.Model):
+    formato = models.CharField(max_length=10)
+
+
 class Fotolito(SaidaBase, TimeStampedModel, Ativo):
     cores = models.CharField(
         'número de cores',
@@ -66,5 +81,22 @@ class Fotolito(SaidaBase, TimeStampedModel, Ativo):
         verbose_name_plural = 'fotolitos'
 
 
-class Lineatura(models.Model):
-    lineatura = models.CharField(max_length=5)
+class Ctp(SaidaBase, TimeStampedModel, Ativo):
+    lineatura = models.ForeignKey(
+        'Lineatura',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+    RETICULA_CHOICES = (
+        ('con', 'convencional'),
+        ('sub', 'sublimática'),
+        ('est', 'estocástica'),
+    )
+    opcao = models.TextField('opção', null=True, blank=True)
+    reticula = models.CharField('retícula', max_length=3, default='con')
+    chapa = models.BooleanField('chapas forneadas', default=False)
+
+    class Meta:
+        verbose_name = 'CTP'
+        verbose_name_plural = 'CTPs'

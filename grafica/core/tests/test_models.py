@@ -1,5 +1,5 @@
 from django.test import TestCase
-from grafica.core.models import Fotolito
+from grafica.core.models import Fotolito, Ctp
 
 
 class FotolitoTestCase(TestCase):
@@ -16,8 +16,33 @@ class FotolitoTestCase(TestCase):
             'criado_por',
             'criado_em',
             'modificado_em',
+            'ativo',
         )
 
         for field in fields:
             with self.subTest():
                 self.assertTrue(hasattr(Fotolito, field))
+
+
+class CtpTestCase(TestCase):
+
+    def test_should_return_attributes(self):
+        fields = (
+            'titulo',
+            'lineatura',
+            'quantidade',
+            'formato',
+            'opcao',
+            'reticula',
+            'chapa',
+            'recomendacao',
+            'arquivo',
+            'criado_por',
+            'criado_em',
+            'modificado_em',
+            'ativo',
+        )
+
+        for field in fields:
+            with self.subTest():
+                self.assertTrue(hasattr(Ctp, field))
