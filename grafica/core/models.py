@@ -98,6 +98,48 @@ class UserProfile(User, Ativo):
         return '{} {}'.format(self.first_name, self.last_name)
 
 
+class Person(User, Ativo):
+    PERSON_TYPE= (
+        ('PF','Pessoa Física'),
+        ('PJ', 'Pessoa Jurídica'),
+    )
+    person_type = models.CharField(
+        max_length=2, 
+        choices=PERSON_TYPE,
+        blank=True,
+        null=True,
+        )
+
+    class Meta:
+        abstract = True
+
+
+class PersonPF(Person):
+    name = Person.username
+    rg = models.CharField(max_length=255, blank = True, null = True)
+    cpf = models.CharField(max_length=255, blank = True, null = True)
+    birthdate = models.DateField(verbose_name='Data de Nascimento', blank = True, null = True)
+
+    # def __str__(self):
+    #     return self.name
+    
+    class Meta:
+        verbose_name = 'Cadastro Pessoa Física'
+        verbose_name_plural = 'Cadastro de Pessoas Físicas'
+        # ordering = name
+
+class PersonPJ(Person):
+    company_name = models.CharField(max_length = 255, verbose_name = 'Razão Social')
+    cnpj = models.CharField(max_length = 255)
+
+    def __str__(self):
+        return self.company_name
+    
+    class Meta:
+        verbose_name = 'Cadastro Pessoa Jurídica'
+        verbose_name_plural = 'Cadastro de Pessoas Jurídicas'
+
+
 class Lineatura(models.Model):
     titulo = models.CharField(max_length=5)
 
