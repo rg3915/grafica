@@ -1,13 +1,14 @@
 from django.contrib import admin
-from .models import UserProfile, Fotolito, Ctp, ProvaDeCor, Lineatura, Formato, Papel, FineArt, PersonPJ, PersonPF
+from .models import UserProfile, Fotolito, Ctp, ProvaDeCor, Lineatura, Formato, Papel, FineArt, PJ, PF
 
 
-@admin.register(PersonPJ)
-class PersonPJAdmin(admin.ModelAdmin):
+@admin.register(PJ)
+class PJAdmin(admin.ModelAdmin):
     list_display = ('__str__',)
 
-@admin.register(PersonPF)
-class PersonPFAdmin(admin.ModelAdmin):
+
+@admin.register(PF)
+class PFAdmin(admin.ModelAdmin):
     list_display = ('__str__',)
 
 

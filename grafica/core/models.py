@@ -99,24 +99,15 @@ class UserProfile(User, Ativo):
 
 
 class Person(User, Ativo):
-    PERSON_TYPE = (
-        ('PF', 'Pessoa Física'),
-        ('PJ', 'Pessoa Jurídica'),
-    )
-    person_type = models.CharField(
-        max_length=2,
-        choices=PERSON_TYPE,
-        blank=True,
-        null=True,
-    )
+    pass
 
     class Meta:
         abstract = True
 
 
-class PersonPF(Person):
-    rg = models.CharField(max_length=255, blank=True, null=True)
-    cpf = models.CharField(max_length=255, blank=True, null=True)
+class PF(Person):
+    rg = models.CharField(max_length=20, blank=True, null=True)
+    cpf = models.CharField(max_length=11, blank=True, null=True)
     birthdate = models.DateField(
         verbose_name='Data de Nascimento',
         blank=True,
@@ -128,23 +119,23 @@ class PersonPF(Person):
 
     class Meta:
         ordering = ('first_name',)
-        verbose_name = 'Cadastro Pessoa Física'
-        verbose_name_plural = 'Cadastro de Pessoas Físicas'
+        verbose_name = 'Pessoa Física'
+        verbose_name_plural = 'Pessoas Físicas'
 
 
-class PersonPJ(Person):
+class PJ(Person):
     company_name = models.CharField(
         max_length=255,
         verbose_name='Razão Social'
     )
-    cnpj = models.CharField(max_length=255)
+    cnpj = models.CharField(max_length=14, null=True, blank=True)
 
     def __str__(self):
         return self.company_name
 
     class Meta:
-        verbose_name = 'Cadastro Pessoa Jurídica'
-        verbose_name_plural = 'Cadastro de Pessoas Jurídicas'
+        verbose_name = 'Pessoa Jurídica'
+        verbose_name_plural = 'Pessoas Jurídicas'
 
 
 class Lineatura(models.Model):
