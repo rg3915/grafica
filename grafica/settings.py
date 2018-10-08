@@ -28,7 +28,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'grafica.bureau',
     'grafica.core',
+    'grafica.crm',
 ]
 
 MIDDLEWARE = [
