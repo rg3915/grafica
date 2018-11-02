@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from grafica.core.models import Ativo
+from .managers import ClienteManager, FornecedorManager
 
 
 class UserProfile(User, Ativo):
@@ -109,12 +110,6 @@ class Employee(People):
     ctps = models.CharField(max_length=20, null=True, blank=True)
 
 
-class ClienteManager(models.Manager):
-
-    def get_queryset(self):
-        return super(ClienteManager, self).get_queryset().filter(tipo='c')
-
-
 class Cliente(models.Model):
     TIPO = (
         ('c', 'cliente'),
@@ -134,12 +129,6 @@ class Cliente(models.Model):
 
     def __str__(self):
         return self.nome
-
-
-class FornecedorManager(models.Manager):
-
-    def get_queryset(self):
-        return super(FornecedorManager, self).get_queryset().filter(tipo='f')
 
 
 class Fornecedor(Cliente):
