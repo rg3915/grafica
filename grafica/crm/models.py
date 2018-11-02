@@ -75,6 +75,10 @@ class PJ(Person):
 
 
 class People(Person):
+    '''
+    É uma nova tabela.
+    É uma cópia de Person.
+    '''
     GENERO = (
         ('', '---'),
         ('M', 'masculino'),
@@ -84,6 +88,9 @@ class People(Person):
 
 
 class Colaborator(People):
+    '''
+    MTI
+    '''
     codigo_profissional = models.CharField(
         max_length=10, null=True, blank=True, help_text='Código do profissional'
     )
@@ -93,7 +100,55 @@ class Colaborator(People):
 
 
 class Employee(People):
+    '''
+    MTI
+    '''
     salario = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True
     )
     ctps = models.CharField(max_length=20, null=True, blank=True)
+
+
+class ClienteManager(models.Manager):
+
+    def get_queryset(self):
+        return super(ClienteManager, self).get_queryset().filter(tipo='c')
+
+
+class Cliente(models.Model):
+    TIPO = (
+        ('c', 'cliente'),
+        ('f', 'fornecedor'),
+    )
+    nome = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(null=True, blank=True)
+    telefone = models.CharField(max_length=10, null=True, blank=True)
+    cnpj = models.CharField(max_length=18, null=True, blank=True)
+    tipo = models.CharField(max_length=2, choices=TIPO)
+
+    objects = ClienteManager()
+
+    class Meta:
+        verbose_name = 'cliente'
+        verbose_name_plural = 'clientes'
+
+    def __str__(self):
+        return self.nome
+
+
+class FornecedorManager(models.Manager):
+
+    def get_queryset(self):
+        return super(FornecedorManager, self).get_queryset().filter(tipo='f')
+
+
+class Fornecedor(Cliente):
+    '''
+    Proxy model
+    '''
+    objects = FornecedorManager()
+
+    class Meta:
+        proxy = True
+        verbose_name = 'fornecedor'
+        verbose_name_plural = 'fornecedores'
