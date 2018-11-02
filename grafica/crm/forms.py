@@ -6,7 +6,7 @@ class ClienteForm(forms.ModelForm):
 
     class Meta:
         model = Cliente
-        fields = ('nome', 'email', 'telefone', 'cnpj')
+        fields = ('nome', 'email', 'telefone', 'cnpj', 'uf')
 
     def save(self, commit=True):
         instance = super(ClienteForm, self).save(commit=False)

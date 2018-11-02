@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from localflavor.br.br_states import STATE_CHOICES
 from grafica.core.models import Ativo
 from .managers import ClienteManager, FornecedorManager
 
@@ -120,6 +121,7 @@ class Cliente(models.Model):
     telefone = models.CharField(max_length=10, null=True, blank=True)
     cnpj = models.CharField(max_length=18, null=True, blank=True)
     tipo = models.CharField(max_length=2, choices=TIPO)
+    uf = models.CharField('UF', max_length=2, choices=STATE_CHOICES)
 
     objects = ClienteManager()
 
