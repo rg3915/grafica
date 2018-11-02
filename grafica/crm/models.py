@@ -72,3 +72,28 @@ class PJ(Person):
     class Meta:
         verbose_name = 'Pessoa Jurídica'
         verbose_name_plural = 'Pessoas Jurídicas'
+
+
+class People(Person):
+    GENERO = (
+        ('', '---'),
+        ('M', 'masculino'),
+        ('F', 'feminino'),
+    )
+    genero = models.CharField(max_length=1, choices=GENERO, default='')
+
+
+class Colaborator(People):
+    codigo_profissional = models.CharField(
+        max_length=10, null=True, blank=True, help_text='Código do profissional'
+    )
+    interno = models.BooleanField(
+        default=False, help_text='O profissional é interno ou não.'
+    )
+
+
+class Employee(People):
+    salario = models.DecimalField(
+        max_digits=7, decimal_places=2, null=True, blank=True
+    )
+    ctps = models.CharField(max_length=20, null=True, blank=True)
