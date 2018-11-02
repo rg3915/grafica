@@ -26,5 +26,9 @@ python manage.py migrate
 https://gist.github.com/rg3915/92ca34f69dde014b38c29bf0f48c0b30
 
 
+Leia mais [django-orm][0]
+
 
 ![img](https://raw.githubusercontent.com/rg3915/grafica/master/models.png)
+
+[0]: https://github.com/rg3915/django-orm
