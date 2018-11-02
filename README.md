@@ -46,9 +46,12 @@ Leia a [doc][1]
 
 Leia [Como otimizar suas consultas no Django - De N a 1 em 20 minutos][2]
 
+Leia também [create_data][3]
+
 
 ![img](https://raw.githubusercontent.com/rg3915/grafica/master/models.png)
 
 [0]: https://github.com/rg3915/django-orm
 [1]: https://docs.djangoproject.com/pt-br/2.1/topics/db/aggregation/
 [2]: http://pythonclub.com.br/django-introducao-queries.html
+[3]: https://github.com/rg3915/crm-django-vuejs/blob/master/backend/create_data.py
