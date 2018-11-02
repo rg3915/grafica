@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import UserProfile, PJ, PF, Colaborator, Employee, Cliente, Fornecedor
+from .forms import ClienteForm, FornecedorForm
 
 
 @admin.register(UserProfile)
@@ -31,8 +32,10 @@ class EmployeeAdmin(admin.ModelAdmin):
 @admin.register(Cliente)
 class ClienteAdmin(admin.ModelAdmin):
     list_display = ('__str__',)
+    form = ClienteForm
 
 
 @admin.register(Fornecedor)
 class FornecedorAdmin(admin.ModelAdmin):
     list_display = ('__str__',)
+    form = FornecedorForm
